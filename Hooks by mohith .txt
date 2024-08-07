@@ -1,0 +1,298 @@
+useState is used for state management:
+----------------------------------------
+
+how to import useState :
+
+import {useState} from 'react';
+
+its a named exported method  we can import by using {useState} from react library.
+
+decleration of useState:
+
+let [variableName,functiontoupdatevariableName()]=useState();
+
+useState() returns one variable and function to update the variable.
+
+how can be use it : 
+
+ let [counter,ucounter]=useState(0)->we can also give some initial value we gave here 0.
+
+ in the jsx <h1>{counter}</h1>
+            <buttoon onClick={()=>{ucounter(counter++)}}>update</button>
+
+-----------------------------------------------------------------------------------
+useEffect is used for mainly api calls :
+-----------------------------------------------------------------------------------
+how to import useEffect :
+
+import {useEffect} from 'react';
+
+its a named exported method  we can import by using {useEffect} from react library.
+
+decleration of useEffect:
+
+useEffect(arrow function ,[])
+
+useEffect take two parameters -> a return function and dependence [].
+
+how can be use it : 
+
+case 1: useEffect(()=>{getdata()}) -> if we not declare dependence the useEffect method is going
+ to execute every time when the component is re-rendered .
+
+case 2: useEffect(()=>{getdata()},[]) ->if we declare an empty array the useEffectis execute for the 
+one time when the component render first time.
+
+case 3: useEffect(()=>{getdata()},[variable]) ->if we menction the variable in the dependence the 
+useEffect method is exported when the variable state is updated.
+
+--------------------------------------------------------------------------------------
+useRef:
+----------------------------------------------------------------------------------------
+
+how import useRef :
+
+import {useRef} from 'react';
+
+declare of useRef:
+
+let <variablename>=useRef()->here we can give some initial value for ref variable.
+
+how to use useRef:
+
+let r=useRef(0);
+
+here if we console the ref variable  we get an output like this : ref{ current:0<initialvalue>}
+we can acces the value by destructureing ref like ref.current
+
+<h1 ref={r}>hello mohith </h1>
+r.innerHTML ="hello useRef";     
+
+by useing ref we can update the dom .
+
+advantages of useing useRef:
+
+ex//
+
+function App(){
+
+    let r=useRef(0)
+
+    return (
+
+        <h1>{r.current}</h1>  // 0 to 1
+        <button onClick={()=>
+
+        {
+            r.current=r.current+1
+            console.log(r.current)  // value:1
+        }}>
+
+        update</button>
+    )
+}
+
+function App(){
+    let r=0;
+    return (
+
+        <h1>{r.current}</h1>    // ui is not updateing 0 to 0
+        <button onClick={()=>
+
+        {
+            r=r+1
+            console.log(r)  // value:1
+        }}>
+
+        update</button>
+    )
+}
+
+-------------------------------------------------------------------------------------
+useMemo:
+-------------------------------------------------------------------------------------
+
+how to import :
+
+import {useMemo} from 'react';
+
+why useMemo :
+it is used to optimization of code .
+it like a memory it can remember the variable passed to useMemo.
+
+how to use and syntax:
+
+useMemo(()=>{
+
+},[variable,variable]);
+
+//ex:
+
+when iam writeing an code to update sum of two numbers by taking two inputs a,b.
+
+useMemo(()=>{
+    return a+b
+},[a,b])
+
+the useMemo is executed when the executed when the given inputs a,b are not same as given before .
+if the given a,b are same as before the useMemo can remember the answer and return it .
+if new inputs are given the useMemo is executed.
+
+-----------------------------------------------------------------------------------------------
+useContext():
+----------------------------------------------------------------------------------------------
+main import's for useContext():
+
+import {useContext} from 'react';
+import {createContext} from 'react';
+
+how to declare :
+
+import {createContext} from 'react';
+
+export let context =createContext();
+
+now we created the context.
+
+how to useit :
+
+declare some data :
+let data={
+    name:"mohith",
+    role:"mern dev"
+}
+
+now how to share data :
+use <context.Provider value={data}> <Home> </context.Provider>
+
+
+now, how to use acces the data in another components:
+
+use import {useContext} from 'react';
+
+import {context} from './declare.file';
+
+let info =useContext(context);
+
+<h1>{info.name}</h1>
+
+------------------------------------------------------------------------------------------------
+Costum hook :
+----------------------------------------------------------------------------------------------
+
+if we want to use a function multiple time , we can use Costum hook.
+
+1st create a file : data.js ->
+
+function Sum(a,b){
+    return a+b;
+
+}
+
+export default Sum;
+
+now , if we to use the Sum method .
+ we have to import it :
+
+import Sum from './data.js';
+
+let info =Sum(10,10)
+
+console.log(info )  //20
+
+-----------------------------------------------------------------
+
+useReducer():
+---------------------------------------------------------------------------
+it is also called as latest model of state hook .
+it is used for large state management.
+
+how to import :
+import {useReducer} from 'react';
+
+decleration of useReducer:
+
+let [variable,functiontoupdatevariableName()]=useReducer(reducer(),initialvalue)
+
+it returning the variable and function to update variable.
+
+how to use :
+
+function reducer(state,action){
+
+retuen state+action;
+
+}
+
+// reducer is the function called by react when we call dispatch funtion .
+it accept two parameters state and action .
+state holdes the current value.
+action holdes the dispatch(1)->action is 1 .
+
+
+functionn App(){
+
+    let [variable,dispatch]=useReducer(reducer,initialvalue);
+
+    return (
+
+        <div>
+               <h1>{variable}</h1>
+               <button onClick={()=>{
+                dispatch(1)
+               }}>+</button>
+        </div>
+
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
